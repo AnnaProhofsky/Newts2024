@@ -1,0 +1,84 @@
+---
+title: "Phylogeny"
+author: "Anna Prohofsky"
+date: "2024-06-03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Packages
+
+```{r packages, include=FALSE}
+if (!require("ape")) install.packages("ape"); library(ape) # a package for phylogentic analysis (Analysis of Phylogenetics and Evolution)
+
+if (!require("phytools")) install.packages("phytools"); library(phytools) # builds on ape for more analysis and  visualization
+
+if (!require("tidyverse")) install.packages("tidyverse"); library(tidyverse) #a collection of different packages for data science, such as ggplot and dplyr. ALWAYS DO LAST!!
+```
+
+## Info
+
+Goal: take a phylogeny of newts and relatives and map on different ovipositional character state onto it to determine how different ovipositional modes may have evolved.
+
+Phylogeny data: Obtained from Dubois et  al (2021), see reference for full source. The species are all members of Salamandroidea, a suborder of salamanders that includes Ambystomatidae (mole salamanders and Pacific giant salamanders),  include all accounted for newts (subfamily Pleurodelinae) as well as well as Salamandridae (true salamanders and newts). Total species count is  114.
+
+Character data: Obtained from literature searches for the individual species. Character states are defined as follows:
+  Independent (I): eggs do not share a common jelly layer with other eggs, and are deposited individually or a few at a time
+  Mass (M): eggs are contained in a communal jelly layer shared with other eggs
+  Independent/Mass (IM): the species is documented as laying eggs either independently and/or in masses
+  Ovoviviparous (O): eggs develop and hatch within the female, who then expels the larvae
+
+## Read Files
+
+
+```{r Read Files }
+character_data <- read.csv("CharacterData.csv")
+phylo_tree <- read.nexus("NewtPhylo.nex")
+
+```
+Files are available on https://github.com/annaprohofsky 
+
+
+## Data Prep
+
+```{r Data Prep}
+# Identify the species without character data
+na_species <- character_data %>%
+  filter(is.na(Character)) %>%
+  pull(Species)
+
+# Remove rows with NA in "Character" column
+character_data_cleaned <- character_data %>%
+  filter(!is.na(Character))
+
+#convert to a factor
+character_data_cleaned$Character <- as.factor(character_data_cleaned$Character)
+
+#Remove species from the phylogeny
+phylo_tree_cleaned <- drop.tip(phylo_tree, na_species)
+
+```
+
+
+## Map onto Phylogeny
+
+```{r Mapping}
+
+```
+
+
+
+
+## References
+Original Phylogeny from Dubios et al 2021
+  Dubois, Alain, et al. “New Concepts and Methods for Phylogenetic Taxonomy and Nomenclature in Zoology, Exemplified by a New Ranked Cladonomy of Recent Amphibians (Lissamphibia).” Megataxa, vol. 5, no. 1, Feb. 2021, https://doi.org/10.11646/megataxa.5.1.1.
+
+Data for character states listed in bibliography of original publication
+
+http://blog.phytools.org/2023/05/fitting-discrete-character-evolution.html 
+
+Chat GPT assisted with code construction and troubleshooting this  code throughout
+
