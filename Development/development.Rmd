@@ -1,0 +1,60 @@
+---
+title: "Development"
+author: "Anna Prohofsky"
+date: "2024-07-13"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE) #for knitting the PDF
+
+if (!require("tidyverse")) install.packages("tidyverse"); library(tidyverse) #a collection of different packages for data science, such as ggplot and dplyr. ALWAYS DO LAST!! 
+```
+
+## Read in data & check packaging
+
+```{r reading in data}
+hatchling_data <- read.csv("hatchling_data.csv") 
+
+head(hatchling_data)
+tail(hatchling_data)
+summary(hatchling_data)
+str(hatchling_data)
+
+```
+Head/tail match the .csv file. The str looks fine. days_incubating and harrison_stage were both read in as integers, and substrate as character, so we're good there.
+
+## T-tests
+
+Let's start out with t tests for each dependent variable
+```{r t tests}
+t.test(days_incubating ~ substrate, data = hatchling_data)
+t.test(body_length ~ substrate, data = hatchling_data)
+t.test(interoccular_distance ~ substrate, data = hatchling_data)
+t.test(gape_width ~ substrate, data = hatchling_data)
+t.test(harrison_stage ~ substrate, data = hatchling_data)
+```
+Looks like we have significance in days_incubating (p = 0.001641) but nothing else. Gape width is pretty darn close at 0.06. 
+
+I wonder what happens when we remove the underdeveloped larva? N30 only made it to Harrison stage 32 before dying. 
+
+```{r filter out N30}
+hatchling_data_filtered <- hatchling_data %>% filter(id != 'N30')
+tail(hatchling_data_filtered)
+```
+
+With N30 successfully removed, let's rerun the t-tests, excluding the harrison_stage since all of the remaining ones are at 40.
+
+```{r rerun t tests}
+t.test(days_incubating ~ substrate, data = hatchling_data_filtered)
+t.test(body_length ~ substrate, data = hatchling_data_filtered)
+t.test(interoccular_distance ~ substrate, data = hatchling_data_filtered)
+t.test(gape_width ~ substrate, data = hatchling_data_filtered)
+```
+Interesting, now we have significance in days_incubating (p-value = 0.002431), body length (p-value = 0.00947), and gape width (p-value = 0.002533)
+
+There's likely some interplay here between the dependent variables. It makes sense that the longer the eggs incubate, the larger the larvae may be, and larger larvae would have larger mouths.  
+
+## Reference
+
+ChatGPT assisted with occasional code error questions
