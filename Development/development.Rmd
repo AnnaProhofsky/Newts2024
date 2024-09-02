@@ -22,60 +22,65 @@ summary(hatchling_data)
 str(hatchling_data)
 
 ```
-Head/tail match the .csv file. The str looks fine. days_incubating and harrison_stage were both read in as integers, and substrate as character, so we're good there.
+Head/tail match the .csv file. The str looks fine. days_incubating and harrison_stage were both read in as integers, and substrate as character, so we're good there.I realize that I misspelled interocular as "interoccular" but I fixed it for the figures.
 
-## T-tests
+Let's filter out that one outlier, the one at Harrison stage 32. It hatched dead and underdeveloped, so I think we can consider it a loss like the ones lost to water mold.
 
-Let's start out with t tests for each dependent variable. (I realize that I mispelled interocular as "interoccular" but I fixed it for the figures, just  not the coding. Oops! Dyslexia moment.)
-```{r t tests}
-t.test(days_incubating ~ substrate, data = hatchling_data)
-t.test(body_length ~ substrate, data = hatchling_data)
-t.test(interoccular_distance ~ substrate, data = hatchling_data)
-t.test(gape_width ~ substrate, data = hatchling_data)
-t.test(harrison_stage ~ substrate, data = hatchling_data)
-```
-Looks like we have significance in days_incubating (p = 0.001641) but nothing else. Gape width is pretty darn close at 0.06. 
-
-I wonder what happens when we remove the underdeveloped larva? N30 only made it to Harrison stage 32 before dying. 
-
-```{r filter out N30}
+```{r Filter out N30}
 hatchling_data_filtered <- hatchling_data %>% filter(id != 'N30')
 tail(hatchling_data_filtered)
 ```
 
-With N30 successfully removed, let's rerun the t-tests, excluding the harrison_stage since all of the remaining ones are at 40.
 
-```{r rerun t tests}
-t.test(days_incubating ~ substrate, data = hatchling_data_filtered)
+## T-tests
+
+Before we can do t-tests, we need to confirm that the data has normal distribution. Let's do some shapiro tests
+
+```{r confirm normal distribution}
+shapiro.test(hatchling_data_filtered$days_incubating)
+shapiro.test(hatchling_data_filtered$body_length)
+shapiro.test(hatchling_data_filtered$interoccular_distance)
+shapiro.test(hatchling_data_filtered$gape_width)
+
+```
+Looks like body length is normally distributed, and gape width is on the cusp. Let's zoom in on the gape width and take a look at a Q-Q plot
+
+```{r gape width Q-Q plot}
+ggplot(data = hatchling_data_filtered, aes(sample = gape_width)) +
+  geom_qq() +
+  geom_qq_line() +
+  ggtitle("Q-Q Plot for Gape Width")
+```
+Hmmm....I'm on the fence still. What does the histogram look like?
+
+```{r gape width histogram}
+ggplot(data = hatchling_data_filtered, aes(x = gape_width)) +
+  geom_histogram(binwidth = 0.01, fill = "blue", color = "black") +
+  ggtitle("Histogram of Gape Width")
+```
+If you squint you can see a curve, but even then it's shifted to the left with a long tail to the right. Despite the shapiro test p-value = 0.05175 which is technically above 0.05, I'm going to call this not normally distributed. 
+
+This means our only normally distributed data is body length with p-value = 0.9855. Let's move forward with the t-test there.
+
+```{r t tests}
 t.test(body_length ~ substrate, data = hatchling_data_filtered)
-t.test(interoccular_distance ~ substrate, data = hatchling_data_filtered)
-t.test(gape_width ~ substrate, data = hatchling_data_filtered)
 ```
-Interesting, now we have significance in days incubating (p-value = 0.002431), interocular distance (p-value = 0.0402) body length (p-value = 0.00947), and gape width (p-value = 0.002533)
+Significance! It appears that the ones wrapped in dead leaves were longer.
 
-There's likely some interplay here between the dependent variables. It makes sense that the longer the eggs incubate, the larger the larvae may be, and larger larvae would have larger mouths.  
+## Non-paramentric tests
 
-Let's do a summary. 
+For the other data, we can use the Wilcoxon rank-sum test.
 
-```{r summary}
-summary_stats <- hatchling_data_filtered %>%
-  group_by(substrate) %>%
-  summarise(
-    mean_days = mean(days_incubating),
-    sd_days = sd(days_incubating),
-    mean_body = mean(body_length),
-    sd_body = sd(body_length),
-    mean_interoc = mean(interoccular_distance),
-    sd_interoc = sd(interoccular_distance),
-    mean_gape = mean(gape_width),
-    sd_gape = sd(gape_width)
-  )
-
-print(summary_stats)
+```{r Wilcoxon rank-sum}
+wilcox.test(days_incubating ~ substrate, data = hatchling_data_filtered)
+wilcox.test(interoccular_distance ~ substrate, data = hatchling_data_filtered)
+wilcox.test(gape_width ~ substrate, data = hatchling_data_filtered)
 ```
+And three more results with statistical significance, yay!
 
+## Figures
 
-Let's construct some figures now. 
+Let's construct some figures now. I think box plots are appropriate
 
 ```{r incubation figure}
 ggplot(data=hatchling_data_filtered, aes(x=substrate, y=days_incubating, fill=substrate)) +
