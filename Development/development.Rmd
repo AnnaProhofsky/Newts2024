@@ -7,7 +7,7 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE) #for knitting the PDF
-
+if (!require("ggplot2")) install.packages("ggplot2"); library(ggplot2) #for pretty plots
 if (!require("tidyverse")) install.packages("tidyverse"); library(tidyverse) #a collection of different packages for data science, such as ggplot and dplyr. ALWAYS DO LAST!! 
 ```
 
@@ -26,7 +26,7 @@ Head/tail match the .csv file. The str looks fine. days_incubating and harrison_
 
 ## T-tests
 
-Let's start out with t tests for each dependent variable
+Let's start out with t tests for each dependent variable. (I realize that I mispelled interocular as "interoccular" but I fixed it for the figures, just  not the coding. Oops! Dyslexia moment.)
 ```{r t tests}
 t.test(days_incubating ~ substrate, data = hatchling_data)
 t.test(body_length ~ substrate, data = hatchling_data)
@@ -51,10 +51,90 @@ t.test(body_length ~ substrate, data = hatchling_data_filtered)
 t.test(interoccular_distance ~ substrate, data = hatchling_data_filtered)
 t.test(gape_width ~ substrate, data = hatchling_data_filtered)
 ```
-Interesting, now we have significance in days_incubating (p-value = 0.002431), body length (p-value = 0.00947), and gape width (p-value = 0.002533)
+Interesting, now we have significance in days incubating (p-value = 0.002431), interocular distance (p-value = 0.0402) body length (p-value = 0.00947), and gape width (p-value = 0.002533)
 
 There's likely some interplay here between the dependent variables. It makes sense that the longer the eggs incubate, the larger the larvae may be, and larger larvae would have larger mouths.  
 
+Let's do a summary. 
+
+```{r summary}
+summary_stats <- hatchling_data_filtered %>%
+  group_by(substrate) %>%
+  summarise(
+    mean_days = mean(days_incubating),
+    sd_days = sd(days_incubating),
+    mean_body = mean(body_length),
+    sd_body = sd(body_length),
+    mean_interoc = mean(interoccular_distance),
+    sd_interoc = sd(interoccular_distance),
+    mean_gape = mean(gape_width),
+    sd_gape = sd(gape_width)
+  )
+
+print(summary_stats)
+```
+
+
+Let's construct some figures now. 
+
+```{r incubation figure}
+ggplot(data=hatchling_data_filtered, aes(x=substrate, y=days_incubating, fill=substrate)) +
+  geom_boxplot(width=0.25) +
+  labs(x = "Wrapping Material", y = "Days Incubating") +
+  theme_minimal() +
+  scale_fill_manual(values = c("P" = "gray70", "L" = "gray30")) + 
+  scale_x_discrete(labels = c("P" = "Live Plant", "L" = "Dead Leaf")) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.x = element_text(size=14),
+        axis.title.y = element_text(size=14),
+        legend.position = "none")
+
+```
+
+```{r body length figure}
+ggplot(data=hatchling_data_filtered, aes(x=substrate, y=body_length, fill=substrate)) +
+  geom_boxplot(width=0.25) +
+  labs(x = "Wrapping Material", y = "Body Length (mm)") +
+  theme_minimal() +
+  scale_fill_manual(values = c("P" = "gray70", "L" = "gray30")) + 
+  scale_x_discrete(labels = c("P" = "Live Plant", "L" = "Dead Leaf")) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.x = element_text(size=14),
+        axis.title.y = element_text(size=14),
+        legend.position = "none")
+```
+
+```{r interoc figure}
+ggplot(data=hatchling_data_filtered, aes(x=substrate, y=interoccular_distance, fill=substrate)) +
+  geom_boxplot(width=0.25) +
+  labs(x = "Wrapping Material", y = "Interocular Distance (mm)") +
+  theme_minimal() +
+  scale_fill_manual(values = c("P" = "gray70", "L" = "gray30")) + 
+  scale_x_discrete(labels = c("P" = "Live Plant", "L" = "Dead Leaf")) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.x = element_text(size=14),
+        axis.title.y = element_text(size=14),
+        legend.position = "none")
+```
+
+```{r}
+ggplot(data=hatchling_data_filtered, aes(x=substrate, y=gape_width, fill=substrate)) +
+  geom_boxplot(width=0.25) +
+  labs(x = "Wrapping Material", y = "Gape Width (mm)") +
+  theme_minimal() +
+  scale_fill_manual(values = c("P" = "gray70", "L" = "gray30")) + 
+  scale_x_discrete(labels = c("P" = "Live Plant", "L" = "Dead Leaf")) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.x = element_text(size=14),
+        axis.title.y = element_text(size=14),
+        legend.position = "none")
+```
+
+
 ## Reference
 
-ChatGPT assisted with occasional code error questions
+1: ChatGPT assisted with occasional code error questions
