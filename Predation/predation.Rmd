@@ -1,0 +1,85 @@
+---
+title: "predation"
+author: "Anna Prohofsky"
+date: "2024-09-06"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE) #for knitting the PDF
+if (!require("ggplot2")) install.packages("ggplot2"); library(ggplot2) #for pretty plots
+if (!require("rstatix")) install.packages("rstatix"); library(rstatix) #needed for the Dunn test
+if (!require("tidyverse")) install.packages("tidyverse"); library(tidyverse) #a collection of different packages for data science, such as ggplot and dplyr. ALWAYS DO LAST!! 
+```
+
+## Read in data & check packaging
+```{r reading in data}
+predation_data <- read.csv("predation_data.csv") 
+
+head(predation_data)
+tail(predation_data)
+summary(predation_data)
+str(predation_data)
+```
+Everything looks fine, except it did not preserve my significant digits, though I don't think that matters. 
+
+Next let's check for normality & homogeneity
+
+## Assumptions Check
+
+```{r normalcy check}
+predation_data %>%
+  group_by(Substrate) %>%
+  summarise(shapiro_test = shapiro.test(Eggs.Eaten)$p.value)
+```
+Looks like N is normally distributed, P isn't, and L is on the cusp, so a non-parametric test is needed. 
+
+## Statistical tests
+
+We'll start with a Kruskal-Wallis test to determine if there is any significance
+```{r kw test}
+kruskal.test(Eggs.Eaten ~ Substrate, data = predation_data)
+```
+Looks like there is significant difference there, though between what groups is the question.
+
+Next a post-hoc test of some kind is needed. I'll try a Dunntest with a Bonferroni correction since I have 3 groups.
+```{r Dunn test}
+dunn_result <- dunn_test(formula = Eggs.Eaten ~ Substrate, 
+                         data = predation_data, 
+                         p.adjust.method = "bonferroni")
+
+dunn_result
+```
+So there's statistical significance between Leaf and None, but not between the others.
+
+## Figure
+
+```{r boxplot}
+ggplot(data=predation_data, aes(x=Substrate, y=Eggs.Eaten, fill=Substrate)) +
+  geom_boxplot(width=0.25) +
+  labs(x = "Wrapping Material", y = "Percentage Eggs Eaten") +
+  theme_minimal() +
+  scale_fill_manual(values = c("P" = "gray70", "L" = "gray30", "N" = "gray10")) + 
+  scale_x_discrete(labels = c("P" = "Live Plant", "L" = "Dead Leaf", "N" = "None")) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.x = element_text(size=14),
+        axis.title.y = element_text(size=14),
+        legend.position = "none") +
+geom_text(
+    aes(x = 1, y = 0.85, label = "a"), 
+    size = 5, vjust = -0.5) +  
+  geom_text(
+    aes(x = 2, y = 0.85, label = "b"), 
+    size = 5, vjust = -0.5) +  
+  geom_text(
+    aes(x = 3, y = 0.85, label = "ab"), 
+    size = 5, vjust = -0.5)
+```
+
+
+## Reference
+
+1: ChatGPT assisted with occasional code error questions

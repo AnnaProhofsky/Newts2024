@@ -1,0 +1,502 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Development},
+  pdfauthor={Anna Prohofsky},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Development}
+\author{Anna Prohofsky}
+\date{2024-07-13}
+
+\begin{document}
+\maketitle
+
+\subsection{Read in data \& check
+packaging}\label{read-in-data-check-packaging}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{hatchling\_data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"hatchling\_data.csv"}\NormalTok{) }
+
+\FunctionTok{head}\NormalTok{(hatchling\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   id substrate days_incubating body_length interoccular_distance gape_width
+## 1 N1         P              20        8.62                  1.51      0.487
+## 2 N2         P              20        9.21                  1.48      0.569
+## 3 N3         P              19        8.24                  1.34      0.438
+## 4 N4         P              20        8.25                  1.29      0.414
+## 5 N5         P              18        8.03                  1.24      0.351
+## 6 N6         P              21        8.63                  1.50      0.497
+##   harrison_stage
+## 1             40
+## 2             40
+## 3             40
+## 4             40
+## 5             40
+## 6             40
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tail}\NormalTok{(hatchling\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     id substrate days_incubating body_length interoccular_distance gape_width
+## 27 N27         L              20        8.77                  1.47      0.481
+## 28 N28         L              20        8.28                  1.20      0.450
+## 29 N29         L              24        8.37                  1.45      0.513
+## 30 N30         L              21        5.23                  1.12      0.252
+## 31 N31         L              26        8.82                  1.52      0.593
+## 32 N32         L              24        8.67                  1.35      0.596
+##    harrison_stage
+## 27             40
+## 28             40
+## 29             40
+## 30             32
+## 31             40
+## 32             40
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(hatchling\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       id             substrate         days_incubating  body_length   
+##  Length:32          Length:32          Min.   :18.00   Min.   :5.230  
+##  Class :character   Class :character   1st Qu.:18.75   1st Qu.:7.902  
+##  Mode  :character   Mode  :character   Median :20.00   Median :8.290  
+##                                        Mean   :20.38   Mean   :8.241  
+##                                        3rd Qu.:21.00   3rd Qu.:8.670  
+##                                        Max.   :26.00   Max.   :9.490  
+##  interoccular_distance   gape_width     harrison_stage 
+##  Min.   :1.120         Min.   :0.2520   Min.   :32.00  
+##  1st Qu.:1.305         1st Qu.:0.4475   1st Qu.:40.00  
+##  Median :1.360         Median :0.4790   Median :40.00  
+##  Mean   :1.371         Mean   :0.4877   Mean   :39.75  
+##  3rd Qu.:1.470         3rd Qu.:0.5148   3rd Qu.:40.00  
+##  Max.   :1.540         Max.   :0.7130   Max.   :40.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(hatchling\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    32 obs. of  7 variables:
+##  $ id                   : chr  "N1" "N2" "N3" "N4" ...
+##  $ substrate            : chr  "P" "P" "P" "P" ...
+##  $ days_incubating      : int  20 20 19 20 18 21 19 19 18 18 ...
+##  $ body_length          : num  8.62 9.21 8.24 8.25 8.03 8.63 8.54 7.83 7.48 8.3 ...
+##  $ interoccular_distance: num  1.51 1.48 1.34 1.29 1.24 1.5 1.31 1.35 1.32 1.37 ...
+##  $ gape_width           : num  0.487 0.569 0.438 0.414 0.351 0.497 0.475 0.421 0.427 0.495 ...
+##  $ harrison_stage       : int  40 40 40 40 40 40 40 40 40 40 ...
+\end{verbatim}
+
+Head/tail match the .csv file. The str looks fine. days\_incubating and
+harrison\_stage were both read in as integers, and substrate as
+character, so we're good there.I realize that I misspelled interocular
+as ``interoccular'' but I fixed it for the figures.
+
+Let's filter out that one outlier, the one at Harrison stage 32. It
+hatched dead and underdeveloped, so I think we can consider it a loss
+like the ones lost to water mold.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{hatchling\_data\_filtered }\OtherTok{\textless{}{-}}\NormalTok{ hatchling\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(id }\SpecialCharTok{!=} \StringTok{\textquotesingle{}N30\textquotesingle{}}\NormalTok{)}
+\FunctionTok{tail}\NormalTok{(hatchling\_data\_filtered)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     id substrate days_incubating body_length interoccular_distance gape_width
+## 26 N26         L              24        8.67                  1.54      0.588
+## 27 N27         L              20        8.77                  1.47      0.481
+## 28 N28         L              20        8.28                  1.20      0.450
+## 29 N29         L              24        8.37                  1.45      0.513
+## 30 N31         L              26        8.82                  1.52      0.593
+## 31 N32         L              24        8.67                  1.35      0.596
+##    harrison_stage
+## 26             40
+## 27             40
+## 28             40
+## 29             40
+## 30             40
+## 31             40
+\end{verbatim}
+
+\subsection{T-tests}\label{t-tests}
+
+Before we can do t-tests, we need to confirm that the data has normal
+distribution. Let's do some shapiro tests
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{shapiro.test}\NormalTok{(hatchling\_data\_filtered}\SpecialCharTok{$}\NormalTok{days\_incubating)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  hatchling_data_filtered$days_incubating
+## W = 0.81321, p-value = 9.155e-05
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{shapiro.test}\NormalTok{(hatchling\_data\_filtered}\SpecialCharTok{$}\NormalTok{body\_length)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  hatchling_data_filtered$body_length
+## W = 0.9893, p-value = 0.9855
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{shapiro.test}\NormalTok{(hatchling\_data\_filtered}\SpecialCharTok{$}\NormalTok{interoccular\_distance)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  hatchling_data_filtered$interoccular_distance
+## W = 0.95721, p-value = 0.2457
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{shapiro.test}\NormalTok{(hatchling\_data\_filtered}\SpecialCharTok{$}\NormalTok{gape\_width)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  hatchling_data_filtered$gape_width
+## W = 0.93264, p-value = 0.05175
+\end{verbatim}
+
+Looks like body length is normally distributed, and gape width is on the
+cusp. Let's zoom in on the gape width and take a look at a Q-Q plot
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ hatchling\_data\_filtered, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ gape\_width)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_qq}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_qq\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Q{-}Q Plot for Gape Width"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{development_files/figure-latex/gape width Q-Q plot-1.pdf}
+Hmmm\ldots.I'm on the fence still. What does the histogram look like?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ hatchling\_data\_filtered, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ gape\_width)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \FloatTok{0.01}\NormalTok{, }\AttributeTok{fill =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Histogram of Gape Width"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{development_files/figure-latex/gape width histogram-1.pdf}
+If you squint you can see a curve, but even then it's shifted to the
+left with a long tail to the right. Despite the shapiro test p-value =
+0.05175 which is technically above 0.05, I'm going to call this not
+normally distributed.
+
+This means our only normally distributed data is body length with
+p-value = 0.9855. Let's move forward with the t-test there.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t.test}\NormalTok{(body\_length }\SpecialCharTok{\textasciitilde{}}\NormalTok{ substrate, }\AttributeTok{data =}\NormalTok{ hatchling\_data\_filtered)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  body_length by substrate
+## t = 2.7826, df = 28.463, p-value = 0.00947
+## alternative hypothesis: true difference in means between group L and group P is not equal to 0
+## 95 percent confidence interval:
+##  0.1173108 0.7700577
+## sample estimates:
+## mean in group L mean in group P 
+##        8.610000        8.166316
+\end{verbatim}
+
+Significance! It appears that the ones wrapped in dead leaves were
+longer.
+
+\subsection{Non-paramentric tests}\label{non-paramentric-tests}
+
+For the other data, we can use the Wilcoxon rank-sum test.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{wilcox.test}\NormalTok{(days\_incubating }\SpecialCharTok{\textasciitilde{}}\NormalTok{ substrate, }\AttributeTok{data =}\NormalTok{ hatchling\_data\_filtered)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+## compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  days_incubating by substrate
+## W = 193, p-value = 0.001144
+## alternative hypothesis: true location shift is not equal to 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{wilcox.test}\NormalTok{(interoccular\_distance }\SpecialCharTok{\textasciitilde{}}\NormalTok{ substrate, }\AttributeTok{data =}\NormalTok{ hatchling\_data\_filtered)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+## compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  interoccular_distance by substrate
+## W = 165.5, p-value = 0.03841
+## alternative hypothesis: true location shift is not equal to 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{wilcox.test}\NormalTok{(gape\_width }\SpecialCharTok{\textasciitilde{}}\NormalTok{ substrate, }\AttributeTok{data =}\NormalTok{ hatchling\_data\_filtered)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+## compute exact p-value with ties
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  gape_width by substrate
+## W = 195, p-value = 0.001095
+## alternative hypothesis: true location shift is not equal to 0
+\end{verbatim}
+
+And three more results with statistical significance, yay!
+
+\subsection{Figures}\label{figures}
+
+Let's construct some figures now. I think box plots are appropriate
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{hatchling\_data\_filtered, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{substrate, }\AttributeTok{y=}\NormalTok{days\_incubating, }\AttributeTok{fill=}\NormalTok{substrate)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width=}\FloatTok{0.25}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Wrapping Material"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Days Incubating"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"P"} \OtherTok{=} \StringTok{"gray70"}\NormalTok{, }\StringTok{"L"} \OtherTok{=} \StringTok{"gray30"}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"P"} \OtherTok{=} \StringTok{"Live Plant"}\NormalTok{, }\StringTok{"L"} \OtherTok{=} \StringTok{"Dead Leaf"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{panel.grid.major =} \FunctionTok{element\_blank}\NormalTok{(),}
+        \AttributeTok{panel.grid.minor =} \FunctionTok{element\_blank}\NormalTok{(),}
+        \AttributeTok{axis.title.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{14}\NormalTok{),}
+        \AttributeTok{axis.title.y =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{14}\NormalTok{),}
+        \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{development_files/figure-latex/incubation figure-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{hatchling\_data\_filtered, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{substrate, }\AttributeTok{y=}\NormalTok{body\_length, }\AttributeTok{fill=}\NormalTok{substrate)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width=}\FloatTok{0.25}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Wrapping Material"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Body Length (mm)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"P"} \OtherTok{=} \StringTok{"gray70"}\NormalTok{, }\StringTok{"L"} \OtherTok{=} \StringTok{"gray30"}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"P"} \OtherTok{=} \StringTok{"Live Plant"}\NormalTok{, }\StringTok{"L"} \OtherTok{=} \StringTok{"Dead Leaf"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{panel.grid.major =} \FunctionTok{element\_blank}\NormalTok{(),}
+        \AttributeTok{panel.grid.minor =} \FunctionTok{element\_blank}\NormalTok{(),}
+        \AttributeTok{axis.title.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{14}\NormalTok{),}
+        \AttributeTok{axis.title.y =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{14}\NormalTok{),}
+        \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{development_files/figure-latex/body length figure-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{hatchling\_data\_filtered, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{substrate, }\AttributeTok{y=}\NormalTok{interoccular\_distance, }\AttributeTok{fill=}\NormalTok{substrate)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width=}\FloatTok{0.25}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Wrapping Material"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Interocular Distance (mm)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"P"} \OtherTok{=} \StringTok{"gray70"}\NormalTok{, }\StringTok{"L"} \OtherTok{=} \StringTok{"gray30"}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"P"} \OtherTok{=} \StringTok{"Live Plant"}\NormalTok{, }\StringTok{"L"} \OtherTok{=} \StringTok{"Dead Leaf"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{panel.grid.major =} \FunctionTok{element\_blank}\NormalTok{(),}
+        \AttributeTok{panel.grid.minor =} \FunctionTok{element\_blank}\NormalTok{(),}
+        \AttributeTok{axis.title.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{14}\NormalTok{),}
+        \AttributeTok{axis.title.y =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{14}\NormalTok{),}
+        \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{development_files/figure-latex/interoc figure-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{hatchling\_data\_filtered, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{substrate, }\AttributeTok{y=}\NormalTok{gape\_width, }\AttributeTok{fill=}\NormalTok{substrate)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width=}\FloatTok{0.25}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Wrapping Material"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Gape Width (mm)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"P"} \OtherTok{=} \StringTok{"gray70"}\NormalTok{, }\StringTok{"L"} \OtherTok{=} \StringTok{"gray30"}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"P"} \OtherTok{=} \StringTok{"Live Plant"}\NormalTok{, }\StringTok{"L"} \OtherTok{=} \StringTok{"Dead Leaf"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{panel.grid.major =} \FunctionTok{element\_blank}\NormalTok{(),}
+        \AttributeTok{panel.grid.minor =} \FunctionTok{element\_blank}\NormalTok{(),}
+        \AttributeTok{axis.title.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{14}\NormalTok{),}
+        \AttributeTok{axis.title.y =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{14}\NormalTok{),}
+        \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{development_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\subsection{Reference}\label{reference}
+
+1: ChatGPT assisted with occasional code error questions
+
+\end{document}

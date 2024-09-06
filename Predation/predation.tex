@@ -1,0 +1,288 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={predation},
+  pdfauthor={Anna Prohofsky},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{predation}
+\author{Anna Prohofsky}
+\date{2024-09-06}
+
+\begin{document}
+\maketitle
+
+\subsection{Read in data \& check
+packaging}\label{read-in-data-check-packaging}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{predation\_data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"predation\_data.csv"}\NormalTok{) }
+
+\FunctionTok{head}\NormalTok{(predation\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Substrate Eggs.Eaten
+## 1         P        0.6
+## 2         P        0.8
+## 3         P        0.4
+## 4         P        0.8
+## 5         P        0.6
+## 6         L        0.4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tail}\NormalTok{(predation\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Substrate Eggs.Eaten
+## 10         L        0.2
+## 11         N        0.8
+## 12         N        1.0
+## 13         N        1.0
+## 14         N        1.0
+## 15         N        1.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(predation\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Substrate           Eggs.Eaten  
+##  Length:15          Min.   :0.20  
+##  Class :character   1st Qu.:0.40  
+##  Mode  :character   Median :0.60  
+##                     Mean   :0.64  
+##                     3rd Qu.:0.90  
+##                     Max.   :1.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(predation\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    15 obs. of  2 variables:
+##  $ Substrate : chr  "P" "P" "P" "P" ...
+##  $ Eggs.Eaten: num  0.6 0.8 0.4 0.8 0.6 0.4 0.2 0.2 0.6 0.2 ...
+\end{verbatim}
+
+Everything looks fine, except it did not preserve my significant digits,
+though I don't think that matters.
+
+Next let's check for normality \& homogeneity
+
+\subsection{Assumptions Check}\label{assumptions-check}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{predation\_data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Substrate) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{shapiro\_test =} \FunctionTok{shapiro.test}\NormalTok{(Eggs.Eaten)}\SpecialCharTok{$}\NormalTok{p.value)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 2
+##   Substrate shapiro_test
+##   <chr>            <dbl>
+## 1 L             0.0460  
+## 2 N             0.000131
+## 3 P             0.314
+\end{verbatim}
+
+Looks like N is normally distributed, P isn't, and L is on the cusp, so
+a non-parametric test is needed.
+
+\subsection{Statistical tests}\label{statistical-tests}
+
+We'll start with a Kruskal-Wallis test to determine if there is any
+significance
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kruskal.test}\NormalTok{(Eggs.Eaten }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Substrate, }\AttributeTok{data =}\NormalTok{ predation\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  Eggs.Eaten by Substrate
+## Kruskal-Wallis chi-squared = 11.309, df = 2, p-value = 0.003501
+\end{verbatim}
+
+Looks like there is significant difference there, though between what
+groups is the question.
+
+Next a post-hoc test of some kind is needed. I'll try a Dunntest with a
+Bonferroni correction since I have 3 groups.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dunn\_result }\OtherTok{\textless{}{-}} \FunctionTok{dunn\_test}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ Eggs.Eaten }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Substrate, }
+                         \AttributeTok{data =}\NormalTok{ predation\_data, }
+                         \AttributeTok{p.adjust.method =} \StringTok{"bonferroni"}\NormalTok{)}
+
+\NormalTok{dunn\_result}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 9
+##   .y.        group1 group2    n1    n2 statistic        p   p.adj p.adj.signif
+## * <chr>      <chr>  <chr>  <int> <int>     <dbl>    <dbl>   <dbl> <chr>       
+## 1 Eggs.Eaten L      N          5     5      3.36 0.000786 0.00236 **          
+## 2 Eggs.Eaten L      P          5     5      1.52 0.129    0.388   ns          
+## 3 Eggs.Eaten N      P          5     5     -1.84 0.0656   0.197   ns
+\end{verbatim}
+
+So there's statistical significance between Leaf and None, but not
+between the others.
+
+\subsection{Figure}\label{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{predation\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Substrate, }\AttributeTok{y=}\NormalTok{Eggs.Eaten, }\AttributeTok{fill=}\NormalTok{Substrate)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{width=}\FloatTok{0.25}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Wrapping Material"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Percentage Eggs Eaten"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"P"} \OtherTok{=} \StringTok{"gray70"}\NormalTok{, }\StringTok{"L"} \OtherTok{=} \StringTok{"gray30"}\NormalTok{, }\StringTok{"N"} \OtherTok{=} \StringTok{"gray10"}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"P"} \OtherTok{=} \StringTok{"Live Plant"}\NormalTok{, }\StringTok{"L"} \OtherTok{=} \StringTok{"Dead Leaf"}\NormalTok{, }\StringTok{"N"} \OtherTok{=} \StringTok{"None"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{panel.grid.major =} \FunctionTok{element\_blank}\NormalTok{(),}
+        \AttributeTok{panel.grid.minor =} \FunctionTok{element\_blank}\NormalTok{(),}
+        \AttributeTok{axis.title.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{14}\NormalTok{),}
+        \AttributeTok{axis.title.y =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{14}\NormalTok{),}
+        \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+\FunctionTok{geom\_text}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \DecValTok{1}\NormalTok{, }\AttributeTok{y =} \FloatTok{0.85}\NormalTok{, }\AttributeTok{label =} \StringTok{"a"}\NormalTok{), }
+    \AttributeTok{size =} \DecValTok{5}\NormalTok{, }\AttributeTok{vjust =} \SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}  
+  \FunctionTok{geom\_text}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \DecValTok{2}\NormalTok{, }\AttributeTok{y =} \FloatTok{0.85}\NormalTok{, }\AttributeTok{label =} \StringTok{"b"}\NormalTok{), }
+    \AttributeTok{size =} \DecValTok{5}\NormalTok{, }\AttributeTok{vjust =} \SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}  
+  \FunctionTok{geom\_text}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \DecValTok{3}\NormalTok{, }\AttributeTok{y =} \FloatTok{0.85}\NormalTok{, }\AttributeTok{label =} \StringTok{"ab"}\NormalTok{), }
+    \AttributeTok{size =} \DecValTok{5}\NormalTok{, }\AttributeTok{vjust =} \SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{predation_files/figure-latex/boxplot-1.pdf}
+
+\subsection{Reference}\label{reference}
+
+1: ChatGPT assisted with occasional code error questions
+
+\end{document}
