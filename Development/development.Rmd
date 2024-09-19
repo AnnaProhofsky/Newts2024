@@ -152,9 +152,9 @@ ggplot(data=hatchling_data_filtered, aes(x=substrate, y=gape_width, fill=substra
 ```
 
 ```{r}
-ggplot(data=hatchling_data_filtered, aes(x=substrate, y=grow, fill=substrate)) +
+ggplot(data=hatchling_data_filtered, aes(x=substrate, y=growth_rate, fill=substrate)) +
   geom_boxplot(width=0.25) +
-  labs(x = "Wrapping Material", y = "Gape Width (mm)") +
+  labs(x = "Wrapping Material", y = "Growth Rate") +
   theme_minimal() +
   scale_fill_manual(values = c("P" = "gray70", "L" = "gray30")) + 
   scale_x_discrete(labels = c("P" = "Live Plant", "L" = "Dead Leaf")) +
