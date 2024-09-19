@@ -41,9 +41,10 @@ shapiro.test(hatchling_data_filtered$days_incubating)
 shapiro.test(hatchling_data_filtered$body_length)
 shapiro.test(hatchling_data_filtered$interoccular_distance)
 shapiro.test(hatchling_data_filtered$gape_width)
+shapiro.test(hatchling_data_filtered$growth_rate)
 
 ```
-Looks like body length is normally distributed, and gape width is on the cusp. Let's zoom in on the gape width and take a look at a Q-Q plot
+Looks like body length and interocular distance are normally distributed and days incubating and growth rate aren't. Meanwhile, gape width is on the cusp. Let's zoom in on the gape width and take a look at a Q-Q plot
 
 ```{r gape width Q-Q plot}
 ggplot(data = hatchling_data_filtered, aes(sample = gape_width)) +
@@ -60,12 +61,13 @@ ggplot(data = hatchling_data_filtered, aes(x = gape_width)) +
 ```
 If you squint you can see a curve, but even then it's shifted to the left with a long tail to the right. Despite the shapiro test p-value = 0.05175 which is technically above 0.05, I'm going to call this not normally distributed. 
 
-This means our only normally distributed data is body length with p-value = 0.9855. Let's move forward with the t-test there.
+This means our normally distributed data is body length with p-value = 0.9855 and interocular distance with p-value = 0.2457. Let's move forward with the t-test there.
 
 ```{r t tests}
 t.test(body_length ~ substrate, data = hatchling_data_filtered)
+t.test(interoccular_distance  ~ substrate, data = hatchling_data_filtered)
 ```
-Significance! It appears that the ones wrapped in dead leaves were longer.
+Significance in both!
 
 ## Non-paramentric tests
 
@@ -73,10 +75,20 @@ For the other data, we can use the Wilcoxon rank-sum test.
 
 ```{r Wilcoxon rank-sum}
 wilcox.test(days_incubating ~ substrate, data = hatchling_data_filtered)
-wilcox.test(interoccular_distance ~ substrate, data = hatchling_data_filtered)
 wilcox.test(gape_width ~ substrate, data = hatchling_data_filtered)
+wilcox.test(growth_rate ~ substrate, data = hatchling_data_filtered)
 ```
 And three more results with statistical significance, yay!
+
+## Stat Reporting
+```{r means and SD}
+summary_table <- hatchling_data_filtered %>%
+  group_by(substrate) %>%
+  summarise(across(where(is.numeric), list(mean = ~mean(.), sd = ~sd(.)), .names = "{.col}_{.fn}"))
+
+summary_table
+```
+
 
 ## Figures
 
@@ -139,6 +151,19 @@ ggplot(data=hatchling_data_filtered, aes(x=substrate, y=gape_width, fill=substra
         legend.position = "none")
 ```
 
+```{r}
+ggplot(data=hatchling_data_filtered, aes(x=substrate, y=grow, fill=substrate)) +
+  geom_boxplot(width=0.25) +
+  labs(x = "Wrapping Material", y = "Gape Width (mm)") +
+  theme_minimal() +
+  scale_fill_manual(values = c("P" = "gray70", "L" = "gray30")) + 
+  scale_x_discrete(labels = c("P" = "Live Plant", "L" = "Dead Leaf")) +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.x = element_text(size=14),
+        axis.title.y = element_text(size=14),
+        legend.position = "none")
+```
 
 ## Reference
 
